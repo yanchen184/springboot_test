@@ -1,6 +1,7 @@
 package com.example.test.controller;
 
 
+import com.example.test.color.ColorCustomResponseData;
 import com.example.test.data.ColorDto;
 import com.example.test.service.CmsColorService;
 import com.example.test.color.CmsColorMainResponseData;
@@ -30,6 +31,13 @@ public class BookingController {
     public List<CmsColorMainResponseData> getAllColor() {
         return cmsColorService.getAllColor();
     }
+
+    @GetMapping("/get_custom_color")
+    public List<ColorCustomResponseData> getColor() {
+        return cmsColorService.getColor();
+    }
+
+
 
     @GetMapping("/save_Color")
     public void saveColor(@RequestBody ColorDto colorDto) {

@@ -1,7 +1,10 @@
 package com.example.test.service.impl;
 
 
+import com.example.test.color.ColorCustomResponseData;
+import com.example.test.color.ColorData;
 import com.example.test.data.ColorDto;
+import com.example.test.mapper.CartonMapper;
 import com.example.test.model.Color;
 import com.example.test.reposity.CmsColorDao;
 import com.example.test.service.CmsColorService;
@@ -25,21 +28,28 @@ public class CmsColorServiceImpl implements CmsColorService {
     @Autowired
     private CmsColorDao cmsColorDao;
 
+    @Autowired
+    private CartonMapper cartonMapper;
+
     @Override
     @Transactional(readOnly = true)
     public List<CmsColorMainResponseData> getAllColor() {
         List<Color> list = cmsColorDao.findAll();
-        return list.stream()
-                .map(this::entityToResponseData)
-                .collect(Collectors.toList());
+        return list.stream().map(this::entityToResponseData).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ColorCustomResponseData> getColor() {
+        List<ColorData> colorDataList = cmsColorDao.findColor();
+        return colorDataList.stream().map(cartonMapper::toCmsCartonChangeToToteIssueResponseData).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
     public Map<String, Color> getColors() {
         List<Color> list = cmsColorDao.findAll();
-        return list.stream()
-                .collect(Collectors.toMap(Color::getCode, Function.identity()));
+        return list.stream().collect(Collectors.toMap(Color::getCode, Function.identity()));
     }
 
     @Override
