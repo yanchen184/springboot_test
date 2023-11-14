@@ -47,6 +47,18 @@
             <artifactId>spring-data-jpa</artifactId>
             <version>3.1.5</version>
         </dependency>
+        <!--        跟持久持有關的 必加-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <!--        java.lang.ClassNotFoundException: com.mysql.cj.jdbc.Driver -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.24</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>

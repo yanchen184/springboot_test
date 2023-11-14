@@ -1,4 +1,4 @@
-package data.color;
+package com.example.test.color;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
