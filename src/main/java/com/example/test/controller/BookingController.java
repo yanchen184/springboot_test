@@ -1,10 +1,10 @@
 package com.example.test.controller;
 
 
-import com.example.test.color.ColorCustomResponseData;
-import com.example.test.data.ColorDto;
+import com.example.test.data.ColorCustomResponseData;
+import com.example.test.data.ColorRequestData;
 import com.example.test.service.CmsColorService;
-import com.example.test.color.CmsColorMainResponseData;
+import com.example.test.data.ColorResponseData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +28,7 @@ public class BookingController {
     }
 
     @GetMapping("/get_Color")
-    public List<CmsColorMainResponseData> getAllColor() {
+    public List<ColorResponseData> getAllColor() {
         return cmsColorService.getAllColor();
     }
 
@@ -40,8 +40,8 @@ public class BookingController {
 
 
     @GetMapping("/save_Color")
-    public void saveColor(@RequestBody ColorDto colorDto) {
-         cmsColorService.saveColor(colorDto);
+    public void saveColor(@RequestBody ColorRequestData colorRequestData) {
+         cmsColorService.saveColor(colorRequestData);
     }
 
 }

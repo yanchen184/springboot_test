@@ -1,9 +1,8 @@
 package com.example.test.mapper;
 
 
-import com.example.test.color.ColorCustomResponseData;
-import com.example.test.color.ColorData;
-import com.example.test.data.ColorDto;
+import com.example.test.data.ColorCustomResponseData;
+import com.example.test.model.projector.ColorData;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;

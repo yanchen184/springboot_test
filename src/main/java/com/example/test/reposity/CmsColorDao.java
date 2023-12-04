@@ -1,6 +1,6 @@
 package com.example.test.reposity;
 
-import com.example.test.color.ColorData;
+import com.example.test.model.projector.ColorData;
 import com.example.test.model.Color;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

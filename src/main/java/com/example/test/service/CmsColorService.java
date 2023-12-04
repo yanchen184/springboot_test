@@ -1,20 +1,20 @@
 package com.example.test.service;
 
 
-import com.example.test.color.ColorCustomResponseData;
-import com.example.test.data.ColorDto;
+import com.example.test.data.ColorCustomResponseData;
+import com.example.test.data.ColorRequestData;
 import com.example.test.model.Color;
-import com.example.test.color.CmsColorMainResponseData;
+import com.example.test.data.ColorResponseData;
 
 import java.util.List;
 import java.util.Map;
 
 public interface CmsColorService {
-    List<CmsColorMainResponseData> getAllColor();
+    List<ColorResponseData> getAllColor();
 
     Map<String, Color> getColors();
 
     List<ColorCustomResponseData> getColor();
 
-    void saveColor(ColorDto colorDto);
+    void saveColor(ColorRequestData colorRequestData);
 }

@@ -1,14 +1,14 @@
 package com.example.test.service.impl;
 
 
-import com.example.test.color.ColorCustomResponseData;
-import com.example.test.color.ColorData;
-import com.example.test.data.ColorDto;
+import com.example.test.data.ColorCustomResponseData;
+import com.example.test.model.projector.ColorData;
+import com.example.test.data.ColorRequestData;
 import com.example.test.mapper.CartonMapper;
 import com.example.test.model.Color;
 import com.example.test.reposity.CmsColorDao;
 import com.example.test.service.CmsColorService;
-import com.example.test.color.CmsColorMainResponseData;
+import com.example.test.data.ColorResponseData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class CmsColorServiceImpl implements CmsColorService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CmsColorMainResponseData> getAllColor() {
+    public List<ColorResponseData> getAllColor() {
         List<Color> list = cmsColorDao.findAll();
         return list.stream().map(this::entityToResponseData).collect(Collectors.toList());
     }
@@ -53,12 +53,12 @@ public class CmsColorServiceImpl implements CmsColorService {
     }
 
     @Override
-    public void saveColor(ColorDto colorDto) {
-        Color color = new Color(colorDto.getName(), colorDto.getNameZh(), colorDto.getNameEn());
+    public void saveColor(ColorRequestData colorRequestData) {
+        Color color = new Color(colorRequestData.getName(), colorRequestData.getNameZh(), colorRequestData.getNameEn());
         cmsColorDao.save(color);
     }
 
-    private CmsColorMainResponseData entityToResponseData(Color color) {
-        return CmsColorMainResponseData.builder().code(color.getCode()).enName(color.getEnName()).zhName(color.getZhName()).build();
+    private ColorResponseData entityToResponseData(Color color) {
+        return ColorResponseData.builder().code(color.getCode()).enName(color.getEnName()).zhName(color.getZhName()).build();
     }
 }
