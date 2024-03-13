@@ -1,6 +1,7 @@
 package com.yc.snackoverflow.model;
 
 
+import com.yc.snackoverflow.model.baseAbstract.BaseLongIdDO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +18,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 @Setter
 @NoArgsConstructor
 @Table(name = "BOOKING")
-public class Booking extends BaseModel {
+public class Booking extends BaseLongIdDO {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Member member;

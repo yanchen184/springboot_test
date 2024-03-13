@@ -2,7 +2,7 @@ package com.yc.snackoverflow.mapper;
 
 
 import com.yc.snackoverflow.data.ColorCustomResponseData;
-import com.yc.snackoverflow.model.projector.ColorProjection;
+import com.yc.snackoverflow.projector.ColorProjection;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;

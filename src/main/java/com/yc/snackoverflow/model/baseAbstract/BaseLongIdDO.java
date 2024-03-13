@@ -1,4 +1,4 @@
-package com.yc.snackoverflow.model;
+package com.yc.snackoverflow.model.baseAbstract;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,28 +8,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.experimental.SuperBuilder;
 
-import java.util.Date;
-
-@MappedSuperclass
-@Getter
+/**
+ * @author meow
+ */
 @Setter
+@Getter
+@SuperBuilder
+@MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-public class BaseModel {
+public abstract class BaseLongIdDO extends BaseDO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @CreationTimestamp
-    private Date creationDate;
-
-    @UpdateTimestamp
-    private Date lastModifiedDate;
-
 }

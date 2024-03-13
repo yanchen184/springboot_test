@@ -1,4 +1,4 @@
-package com.yc.snackoverflow.model.projector;
+package com.yc.snackoverflow.projector;
 
 public interface ColorProjection {
     String getCodeAndZhName();

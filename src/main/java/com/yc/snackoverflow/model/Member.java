@@ -1,5 +1,6 @@
 package com.yc.snackoverflow.model;
 
+import com.yc.snackoverflow.model.baseAbstract.BaseLongIdDO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -17,7 +18,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Member extends BaseModel {
+public class Member extends BaseLongIdDO {
 
     @NotNull
     @Column(name = "NAME", nullable = false)
