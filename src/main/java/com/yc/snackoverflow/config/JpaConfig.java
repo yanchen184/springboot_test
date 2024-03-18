@@ -1,5 +1,7 @@
 package com.yc.snackoverflow.config;
 
+import com.yc.snackoverflow.config.web.converter.IntegerEnumConverterFactory;
+import com.yc.snackoverflow.config.web.converter.StringToEnumConverterFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
@@ -17,12 +19,12 @@ public class JpaConfig {
 
 
     @EventListener(ApplicationReadyEvent.class)
-    public void config() throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+    public void config() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         Class<?> aClass = Class.forName("org.springframework.data.projection.ProxyProjectionFactory");
         Field field = aClass.getDeclaredField("CONVERSION_SERVICE");
         field.setAccessible(true);
         GenericConversionService service = (GenericConversionService) field.get(null);
-//        service.addConverterFactory(new StringToEnumConverterFactory());
-//        service.addConverterFactory(new IntegerEnumConverterFactory());
+        service.addConverterFactory(new StringToEnumConverterFactory());
+        service.addConverterFactory(new IntegerEnumConverterFactory());
     }
 }

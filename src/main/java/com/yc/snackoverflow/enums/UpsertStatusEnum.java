@@ -1,5 +1,6 @@
 package com.yc.snackoverflow.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -11,15 +12,16 @@ import java.util.stream.Collectors;
 
 @Getter
 @RequiredArgsConstructor
-public enum UpsertStatusEnum {
+public enum UpsertStatusEnum implements BaseEnum<Integer> {
 
     ERROR(0),
 
-    CREATE_OR_NO_(1),
+    CREATE_OR_NO_CHANGE(1),
 
     UPDATE(2),
-
     ;
+
+    @JsonValue // 這是轉value的重點
     private final Integer value;
 
     private static final Map<Integer, UpsertStatusEnum> ENUMS = Arrays.stream(values()).collect(Collectors.toUnmodifiableMap(UpsertStatusEnum::getValue, Function.identity()));
