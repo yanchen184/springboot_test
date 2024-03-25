@@ -19,7 +19,7 @@ public class LogAspect {
 
     private final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
-    @Before("@within(logAopAnnotation)")
+//    @Before("@within(logAopAnnotation)")
     public void logControllerUsage(JoinPoint joinPoint, LogAop logAopAnnotation) { // TODO
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String httpMethod = request.getMethod();
@@ -27,8 +27,8 @@ public class LogAspect {
         String methodName = signature.getName();
         String args = Arrays.toString(joinPoint.getArgs());
 
-//        String logMessage = String.format("method [%s]. API: %s, Args: %s", httpMethod, methodName, args);
-//        logger.info(logMessage);
+        String logMessage = String.format("method [%s]. API: %s, Args: %s", httpMethod, methodName, args);
+        logger.info(logMessage);
     }
 }
 

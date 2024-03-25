@@ -15,14 +15,9 @@ import org.antlr.v4.runtime.misc.NotNull;
 @Table(name = "PRODUCT_CLASS")
 public class ProductClass extends BaseLongIdDO {
 
-    @NotNull
-    @Column(name = "NAME", nullable = false)
-    private String name;
+    @Column(name = "member_id", nullable = false)
+    private Member member;
 
     public ProductClass() {
-    }
-
-    public ProductClass(@NotNull String name) {
-        this.name = name;
     }
 }
