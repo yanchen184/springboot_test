@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/members")
+@RequestMapping("members")
 public class MemberController {
 
 
@@ -41,7 +42,7 @@ public class MemberController {
     }
 
     @GetMapping
-    public List<Member> listMember(List<String> memberNameList) {
+    public List<Member> listMember(@RequestParam(required = false) List<String> memberNameList) {
         return memberService.listMember(memberNameList);
     }
 

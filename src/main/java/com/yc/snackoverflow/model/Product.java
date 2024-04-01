@@ -5,51 +5,42 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.antlr.v4.runtime.misc.NotNull;
 
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "PRODUCT")
 public class Product extends BaseLongIdDO {
 
-    @NotNull
-    @Column(name = "NAME", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @NotNull
-    @Column(name = "PIC", nullable = false)
+    @Column(nullable = false)
     private String pic;
 
-    @NotNull
-    @Column(name = "PRICE", nullable = false)
+    @Column(nullable = false)
     private Integer price;
 
-    @NotNull
-    @Column(name = "DISABLE", nullable = false)
-    private boolean disable;
+    @Column(nullable = false)
+    private Boolean disable;
 
     @ManyToOne(
             fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE}
     )
+    @JoinColumn(nullable = false)
     private ProductClass productClass;
-
-    public Product() {
-    }
-
-    public Product(@NotNull String name,
-                   @NotNull String pic, @NotNull Integer price, @NotNull ProductClass productClass) {
-        this.name = name;
-        this.pic = pic;
-        this.price = price;
-        this.productClass = productClass;
-        this.disable = false;
-    }
 
 }

@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/colors")
+@RequestMapping("colors")
 public class ColorController {
 
     private final ColorService colorService;

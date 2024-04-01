@@ -24,7 +24,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/bookings")
+@RequestMapping("bookings")
 public class BookingController {
 
 
