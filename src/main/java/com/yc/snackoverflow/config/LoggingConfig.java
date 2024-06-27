@@ -28,8 +28,8 @@ public class LoggingConfig {
     public FilterRegistrationBean<LoggingFilter> loggingFilterRegistration() {
         FilterRegistrationBean<LoggingFilter> registration = new FilterRegistrationBean<>();
         LoggingFilter loggingFilter = new LoggingFilter();
-        loggingFilter.setIncludePayload(true);
-        loggingFilter.setIncludeQueryString(true);
+//        loggingFilter.setIncludePayload(true);
+//        loggingFilter.setIncludeQueryString(true);
         registration.setFilter(loggingFilter);
         registration.addUrlPatterns("/*");
         registration.setName("loggingFilter");

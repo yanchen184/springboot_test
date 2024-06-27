@@ -1,42 +1,51 @@
 package com.yc.snackoverflow.filter;
 
-import com.yc.snackoverflow.wrapper.PkslowRequestWrapper;
-import jakarta.servlet.ServletInputStream;
-import org.springframework.util.StreamUtils;
-import org.springframework.web.filter.CommonsRequestLoggingFilter;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.util.ContentCachingRequestWrapper;
-import org.springframework.web.util.ContentCachingResponseWrapper;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import java.io.InputStreamReader;
+import java.util.Enumeration;
+import java.util.stream.Collectors;
 
 @Slf4j
-public class LoggingFilter extends CommonsRequestLoggingFilter {
+public class LoggingFilter extends OncePerRequestFilter {
 
     @Override
-    protected boolean shouldLog(HttpServletRequest request) {
-        return true;
-    }
+    protected void doFilterInternal(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, jakarta.servlet.FilterChain filterChain) throws ServletException, IOException {
+        String path = request.getRequestURI();
+        String method = request.getMethod();
+        HttpServletRequest wrappedRequest = new HttpServletRequestWrapper(request) {
+            private final String body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
 
-    @Override
-    protected void beforeRequest(HttpServletRequest req, String message) {
-        log.info("Request Body: {}", message);
-//        try {
-//            PkslowRequestWrapper request = new PkslowRequestWrapper(req);
-//            ServletInputStream servletInputStream = request.getInputStream();
-//            String body = StreamUtils.copyToString(servletInputStream, Charset.defaultCharset());
-//            log.info("Request Body(PkslowRequestWrapper): {}", body);
-//        } catch (IOException e) {
-//            logger.error("Failed to retrieve request payload: " + e.getMessage(), e);
-//        }
-    }
+            @Override
+            public BufferedReader getReader() {
+                return new BufferedReader(new InputStreamReader(new ByteArrayInputStream(body.getBytes())));
+            }
+        };
+        Enumeration<String> parameterNames = request.getParameterNames();
+        StringBuilder params = new StringBuilder();
+        while (parameterNames.hasMoreElements()) {
+            String paramName = parameterNames.nextElement();
+            String paramValue = request.getParameter(paramName);
+            params.append(paramName).append("=").append(paramValue).append(", ");
+        }
 
-    @Override
-    protected void afterRequest(HttpServletRequest res, String message) {
-        log.info("Response Body: {}", message);
+        if (!params.isEmpty()) {
+            params.setLength(params.length() - 2);
+        }
+
+        String body = method.equalsIgnoreCase("POST") ? wrappedRequest.getReader().lines().collect(Collectors.joining(System.lineSeparator())) : "";
+
+        log.info("API: {}, method: {}, params: [{}], body: [{}]",
+                path, method, params, body);
+
+        filterChain.doFilter(request, response);
     }
 }
