@@ -14,7 +14,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -27,21 +26,26 @@ public class Member extends BaseLongIdDO {
 
     private String name;
 
+    private String password;
+
     private Boolean alive;
 
-//    @Enumerated(value = jakarta.persistence.EnumType.STRING)
     @Convert(converter = VipEnumAttrConverter.class)
     private VipEnum vip;
-
-    private String password;
 
     @OneToMany(
             fetch = FetchType.LAZY,
             mappedBy = "member",
             cascade = {CascadeType.PERSIST}
     )
-    private Set<LoginLog> LoginLogs;
+    private Set<MemberLog> memberLogs;
 
-    private Date birthday;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "member",
+            cascade = {CascadeType.PERSIST}
+    )
+    private Set<ProductCommit> productCommits;
+
 
 }

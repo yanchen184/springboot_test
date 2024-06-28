@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BookingDtoDetail {
+public class BookingDetailDto {
 
     private String productName;
 

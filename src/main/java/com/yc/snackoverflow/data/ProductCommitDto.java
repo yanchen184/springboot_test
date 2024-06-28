@@ -3,21 +3,23 @@ package com.yc.snackoverflow.data;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
-
-import java.util.Date;
-import java.util.List;
 
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Data
-public class BookingDto {
+public class ProductCommitDto {
 
+    @NonNull
     private String memberName;
 
-    private Date date;
+    @NonNull
+    private String productName;
 
-    private List<BookingDetailDto> bookingDetailDtoList;
+    @NonNull
+    private String content;
+
 }

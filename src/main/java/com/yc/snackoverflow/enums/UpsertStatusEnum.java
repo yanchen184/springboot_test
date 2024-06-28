@@ -29,4 +29,5 @@ public enum UpsertStatusEnum implements BaseEnum<Integer> {
     public static Optional<UpsertStatusEnum> lookup(final Integer value) {
         return Optional.ofNullable(ENUMS.get(value));
     }
+
 }

@@ -7,7 +7,8 @@ import com.yc.snackoverflow.model.Member;
 import java.util.List;
 
 public interface MemberService {
-    UpsertStatusEnum createOrUpdateMember(MemberDto MemberDto);
+    UpsertStatusEnum createOrUpdate(MemberDto MemberDto);
 
-    List<Member> listMember(List<String> memberList);
+    List<Member> list(List<String> memberList);
+
 }

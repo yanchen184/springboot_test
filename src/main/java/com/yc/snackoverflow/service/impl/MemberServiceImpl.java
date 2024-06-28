@@ -12,11 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import static java.time.LocalTime.now;
 
 @Slf4j
 @Service
@@ -27,15 +23,14 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public UpsertStatusEnum createOrUpdateMember(MemberDto memberDto) {
+    public UpsertStatusEnum createOrUpdate(MemberDto memberDto) {
         Member member = Member.builder()
                 .name(memberDto.getName())
                 .alive(true)
                 .vip(VipEnum.VIP1)
                 .password(memberDto.getPassword())
-                .birthday(new Date())
                 .build();
-        int createOrUpdate = memberDao.saveOrUpdateMember(member);
+        int createOrUpdate = memberDao.saveOrUpdate(member);
 
         log.info("memberDao.saveOrUpdateMember(member) return {}", UpsertStatusEnum.lookup(createOrUpdate));
         return UpsertStatusEnum.lookup(createOrUpdate)
@@ -43,7 +38,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> listMember(List<String> memberNameList) {
-        return memberDao.listMember(memberNameList);
+    public List<Member> list(List<String> memberNameList) {
+        return memberDao.list(memberNameList);
     }
 }

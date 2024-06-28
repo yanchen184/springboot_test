@@ -2,11 +2,11 @@ package com.yc.snackoverflow.controller;
 
 
 import com.yc.snackoverflow.data.BookingDto;
-import com.yc.snackoverflow.data.MemberDto;
+import com.yc.snackoverflow.data.ProductDto;
 import com.yc.snackoverflow.enums.UpsertStatusEnum;
 import com.yc.snackoverflow.exception.ProductNotFoundException;
-import com.yc.snackoverflow.model.Member;
-import com.yc.snackoverflow.service.MemberService;
+import com.yc.snackoverflow.model.Product;
+import com.yc.snackoverflow.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -25,25 +25,25 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("members")
-public class MemberController {
+@RequestMapping("productCommits")
+public class ProductCommitController {
 
 
-    private final MemberService memberService;
+    private final ProductService productService;
 
     @PutMapping
-    public UpsertStatusEnum create(@Validated @RequestBody MemberDto memberDto) {
-        return memberService.createOrUpdate(memberDto);
+    public UpsertStatusEnum create(@Validated @RequestBody ProductDto productDto) {
+        return productService.createOrUpdate(productDto);
     }
 
     @PostMapping
-    public UpsertStatusEnum update(@RequestBody MemberDto memberDto) {
-        return memberService.createOrUpdate(memberDto);
+    public UpsertStatusEnum update(@RequestBody ProductDto productDto) {
+        return productService.createOrUpdate(productDto);
     }
 
     @GetMapping
-    public List<Member> list(@RequestParam(required = false) List<String> memberNameList) {
-        return memberService.list(memberNameList);
+    public List<Product> list(@RequestParam(required = false) List<String> memberNameList) {
+        return productService.list(memberNameList);
     }
 
     @DeleteMapping

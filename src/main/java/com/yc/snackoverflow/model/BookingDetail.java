@@ -4,32 +4,33 @@ import com.yc.snackoverflow.model.baseAbstract.BaseLongIdDO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.Set;
-
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "PRODUCT_CLASS")
-public class ProductClass extends BaseLongIdDO {
+@Table(name = "BOOKING_DETAIL")
+public class BookingDetail extends BaseLongIdDO {
 
-    @OneToMany(
+    @ManyToOne(
             fetch = FetchType.LAZY,
-            mappedBy = "productClass",
-            cascade = {CascadeType.PERSIST}
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
     )
-    private Set<Product> products;
+    private Product product;
 
-    private String name;
+    private Integer priority;
+
+    @ManyToOne(
+            fetch = FetchType.LAZY
+    )
+    private Booking booking;
+
+    private Integer count;
 }
