@@ -17,7 +17,6 @@ import java.lang.reflect.Field;
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 public class JpaConfig {
 
-
     @EventListener(ApplicationReadyEvent.class)
     public void config() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         Class<?> aClass = Class.forName("org.springframework.data.projection.ProxyProjectionFactory");

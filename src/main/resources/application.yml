@@ -7,7 +7,7 @@ spring :
     password : ${DB_PASSWORD}
     driver-class-name : com.mysql.cj.jdbc.Driver
     hikari :
-      pool-name : aprd-oms-master-cp
+      pool-name : YcHikariPool
       maximum-pool-size : 20
       connection-init-sql : "SET NAMES 'utf8mb4'"
       max-lifetime : 30000

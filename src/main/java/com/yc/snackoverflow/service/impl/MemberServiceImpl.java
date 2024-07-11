@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -39,6 +40,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<Member> list(List<String> memberNameList) {
-        return memberDao.list(memberNameList);
+        return Optional.ofNullable(memberDao.list(memberNameList))
+                .filter(members -> !members.isEmpty())
+                .orElseThrow(WebErrorEnum.MEMBER_NOT_FOUND::exception);
     }
 }

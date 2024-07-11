@@ -31,33 +31,27 @@ public class BookingController {
     private final BookingService bookingService;
 
     @PutMapping
-    public void createBooking(@RequestBody BookingDto bookingDto) throws MemberNotFoundException, ProductNotFoundException, BookingNotFoundException {
-        bookingService.createBooking(bookingDto);
+    public void create(@RequestBody BookingDto bookingDto) {
+        bookingService.createOrUpdate(bookingDto);
     }
 
     @PostMapping
-    public void updateBooking(@RequestBody BookingDto bookingDto) throws ProductNotFoundException, BookingNotFoundException, MemberNotFoundException {
-        bookingService.createBooking(bookingDto);
+    public void update(@RequestBody BookingDto bookingDto) {
+        bookingService.createOrUpdate(bookingDto);
     }
 
     @GetMapping
-    public List<BookingData> getBooking(String member, Integer month) throws ProductNotFoundException, MemberNotFoundException {
-        return bookingService.getBookingByMemberNameAndDate(member, month);
+    public List<BookingData> listBy(String member, Integer month) {
+        return bookingService.getByMemberAndDate(member, month);
     }
 
     @DeleteMapping
-    public void deleteBooking(@RequestBody BookingDto bookingDto) throws ProductNotFoundException {
+    public void deleteBooking(@RequestBody BookingDto bookingDto) {
         bookingService.deleteBooking(bookingDto);
     }
 
-    @GetMapping("/count")
+    @GetMapping("count")
     public List<CountBookingReturnData> countBooking(Integer month, Integer maxPrice) {
         return bookingService.countBooking(month, maxPrice);
     }
-
-    @GetMapping("/all")
-    public List<BookingData> getAllBooking() {
-        return bookingService.getAllBooking();
-    }
-
 }
