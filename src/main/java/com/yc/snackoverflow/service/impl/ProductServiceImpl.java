@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -37,7 +38,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> list(List<String> productNameList) {
-        return productDao.list(productNameList);
+        return Optional.ofNullable(productDao.list(productNameList))
+                .filter(members -> !members.isEmpty())
+                .orElseThrow(WebErrorEnum.PRODUCT_NOT_FOUND::exception);
     }
 
 }

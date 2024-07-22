@@ -76,7 +76,12 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingData> getByDate(String memberName, Integer date) {
+    public List<BookingData> getByMemberAndDate(String memberName, Integer date) {
+        return null;
+    }
+
+    @Override
+    public List<BookingData> getByMember(String memberName) {
         return null;
     }
 

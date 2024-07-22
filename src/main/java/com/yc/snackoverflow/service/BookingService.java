@@ -13,8 +13,9 @@ public interface BookingService {
 
     List<Booking> list(List<String> productNameList);
 
-    List<BookingData> getByDate(String memberName, Integer date);
+    List<BookingData> getByMemberAndDate(String memberName, Integer date);
 
+    List<BookingData> getByMember(String memberName);
 
     void deleteBooking(BookingDto member);
 
