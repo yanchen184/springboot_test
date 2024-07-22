@@ -5,7 +5,6 @@ import com.yc.snackoverflow.data.BookingDetailDto;
 import com.yc.snackoverflow.data.BookingDto;
 import com.yc.snackoverflow.data.CountBookingReturnData;
 import com.yc.snackoverflow.enums.UpsertStatusEnum;
-import com.yc.snackoverflow.exception.WebErrorEnum;
 import com.yc.snackoverflow.model.Booking;
 import com.yc.snackoverflow.model.BookingDetail;
 import com.yc.snackoverflow.model.Member;
@@ -63,11 +62,12 @@ public class BookingServiceImpl implements BookingService {
             bookingDetails.add(bookingDetail);
         }
 
-        int createOrUpdate = bookingDao.saveOrUpdate(booking);
-        int createOrUpdate = bookingDao.saveOrUpdate(booking);
-        log.info("memberDao.saveOrUpdateMember(booking) return {}", UpsertStatusEnum.lookup(createOrUpdate));
-        return UpsertStatusEnum.lookup(createOrUpdate)
-                .orElseThrow(WebErrorEnum.UPSERT_FAILED::exception);
+//        int createOrUpdate = bookingDao.saveOrUpdate(booking);
+//        int createOrUpdate = bookingDao.saveOrUpdate(booking);
+//        log.info("memberDao.saveOrUpdateMember(booking) return {}", UpsertStatusEnum.lookup(createOrUpdate));
+//        return UpsertStatusEnum.lookup(createOrUpdate)
+//                .orElseThrow(WebErrorEnum.UPSERT_FAILED::exception);
+        return null;
     }
 
     @Override

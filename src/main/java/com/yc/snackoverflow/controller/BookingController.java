@@ -32,17 +32,18 @@ public class BookingController {
 
     @PutMapping
     public void createBooking(@RequestBody BookingDto bookingDto) throws MemberNotFoundException, ProductNotFoundException, BookingNotFoundException {
-        bookingService.createBooking(bookingDto);
+//        bookingService.createBooking(bookingDto);
     }
 
     @PostMapping
     public void updateBooking(@RequestBody BookingDto bookingDto) throws ProductNotFoundException, BookingNotFoundException, MemberNotFoundException {
-        bookingService.createBooking(bookingDto);
+//        bookingService.createBooking(bookingDto);
     }
 
     @GetMapping
     public List<BookingData> getBooking(String member, Integer month) throws ProductNotFoundException, MemberNotFoundException {
-        return bookingService.getBookingByMemberNameAndDate(member, month);
+//        return bookingService.getBookingByMemberNameAndDate(member, month);
+        return null;
     }
 
     @DeleteMapping
@@ -57,7 +58,8 @@ public class BookingController {
 
     @GetMapping("/all")
     public List<BookingData> getAllBooking() {
-        return bookingService.getAllBooking();
+//        return bookingService.getAllBooking();
+        return null;
     }
 
 }

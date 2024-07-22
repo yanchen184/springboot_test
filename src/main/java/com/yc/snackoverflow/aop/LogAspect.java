@@ -12,14 +12,13 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Arrays;
-
 @Aspect
 @Component
 public class LogAspect {
 
     private final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
-//    @Before("@within(logAopAnnotation)")
+    //    @Before("@within(logAopAnnotation)")
     public void logControllerUsage(JoinPoint joinPoint, LogAop logAopAnnotation) { // TODO
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String httpMethod = request.getMethod();
@@ -29,6 +28,11 @@ public class LogAspect {
 
         String logMessage = String.format("method [%s]. API: %s, Args: %s", httpMethod, methodName, args);
         logger.info(logMessage);
+    }
+
+    @Before("execution(* com.yc.snackoverflow.service..*.*(..))")
+    public void logServiceUsage(JoinPoint joinPoint) {
+        System.out.println("logServiceUsage");
     }
 }
 
