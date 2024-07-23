@@ -4,7 +4,11 @@ package com.yc.snackoverflow.filter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.BufferedReader;
@@ -15,6 +19,9 @@ import java.util.Enumeration;
 import java.util.stream.Collectors;
 
 @Slf4j
+//@Component
+@AllArgsConstructor
+//@Order(1)
 public class LoggingFilter extends OncePerRequestFilter {
 
     @Override

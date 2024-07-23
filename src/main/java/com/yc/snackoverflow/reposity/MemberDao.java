@@ -30,6 +30,6 @@ public interface MemberDao extends JpaRepository<Member, Long> {
     @Query(value = "SELECT * FROM MEMBER WHERE (:memberNameList IS NULL OR NAME IN (:memberNameList))", nativeQuery = true)
     List<Member> list(List<String> memberNameList);
 
-    Optional<Member> findByEmail(String email);
+    Optional<Member> findByName(String name);
 
 }

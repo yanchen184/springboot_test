@@ -1,4 +1,4 @@
-package com.yc.snackoverflow.filter;
+package com.yc.snackoverflow.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
@@ -16,7 +18,8 @@ import java.util.function.Function;
 @Service
 public class JwtTokenProvider {
 
-    private final String SECRET_KEY = "7CS9ETeyqF7xDcujoCVb4ZJKB9EV+uBBPLuv+uvA+JW+DppX6SZbM8xqnfmodVm4";
+    private final String SECRET_KEY = "3763794d48435059326864773736636756325133533954624950586776385246";
+
 
     public String extractUsername(String jwt) {
         return extractClaims(jwt, Claims::getSubject);
@@ -37,7 +40,7 @@ public class JwtTokenProvider {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new java.util.Date(System.currentTimeMillis()))
                 .setExpiration(new java.util.Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-                .signWith(getSignInKey(), SignatureAlgorithm.ES256)
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
