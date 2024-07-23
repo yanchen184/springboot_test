@@ -8,6 +8,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -19,6 +24,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserDetailsService userDetailsService;
 
 
     @Override
@@ -33,11 +39,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        assert authorizationHeader != null;
         jwt = authorizationHeader.substring(7);
         userEmail = jwtTokenProvider.extractUsername(jwt);
         if (userEmail == null) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
+        }
+        if (SecurityContextHolder.getContext().getAuthentication() == null) {
+            log.info("Setting security context for user: " + userEmail);
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+            if (jwtTokenProvider.isValidateToken(jwt, userDetails)) {
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
         }
         filterChain.doFilter(request, response);
     }
