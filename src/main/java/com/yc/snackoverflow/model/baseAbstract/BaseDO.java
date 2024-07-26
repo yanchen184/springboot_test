@@ -1,5 +1,6 @@
 package com.yc.snackoverflow.model.baseAbstract;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
@@ -28,14 +29,18 @@ import java.time.LocalDateTime;
 public abstract class BaseDO {
 
     @CreatedBy
+    @JsonIgnore
     private String createdBy;
 
     @CreatedDate
+    @JsonIgnore
     private LocalDateTime createdAt;
 
     @LastModifiedBy
+    @JsonIgnore
     private String updatedBy;
 
     @LastModifiedDate
+    @JsonIgnore
     private LocalDateTime updatedAt;
 }

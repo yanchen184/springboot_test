@@ -23,6 +23,10 @@ public enum WebErrorEnum implements WebError {
     PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR0009", "Product not found. "),
     PRODUCT_EXISTS(HttpStatus.CONFLICT, "ERR0010", "Product exists. "),
     PRODUCT_CLASS_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR0011", "Product class not found. "),
+    METHOD_ARGUMENT_NOT_VALID(HttpStatus.BAD_REQUEST, "ERR0012", "Method argument not valid. "),
+    METHOD_ARGUMENT_ERROR(HttpStatus.BAD_REQUEST, "ERR0013", "Method argument error. "),
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "ERR0014", "Internal server error. "),
+    ASSESS_DENIED_ERROR(HttpStatus.FORBIDDEN, "ERR0015", "Access denied. "),
     ;
 
     private final HttpStatus statusCode;

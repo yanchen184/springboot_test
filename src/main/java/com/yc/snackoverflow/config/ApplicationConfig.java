@@ -2,6 +2,7 @@ package com.yc.snackoverflow.config;
 
 import com.yc.snackoverflow.reposity.MemberDao;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,14 +16,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @RequiredArgsConstructor
+@Slf4j
 public class ApplicationConfig {
 
     private final MemberDao memberDao;
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> memberDao.findByName(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return username -> {
+            log.info("Trying to authenticate user: " + username);
+            return memberDao.findByEmail(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        };
     }
 
     @Bean

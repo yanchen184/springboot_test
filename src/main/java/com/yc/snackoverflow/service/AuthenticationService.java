@@ -50,11 +50,11 @@ public class AuthenticationService {
 
     public AuthenticationRes authenticate(AuthenticationRequest authenticationRequestData) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authenticationRequestData.getUsername(),
+                new UsernamePasswordAuthenticationToken(authenticationRequestData.getEmail(),
                         authenticationRequestData.getPassword())
         );
         return AuthenticationRes.builder()
-                .token(jwtService.generateToken(memberDao.findByName(authenticationRequestData.getUsername()).get()))
+                .token(jwtService.generateToken(memberDao.findByEmail(authenticationRequestData.getEmail()).get()))
                 .build();
     }
 }

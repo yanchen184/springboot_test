@@ -1,5 +1,6 @@
 package com.yc.snackoverflow.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yc.snackoverflow.enums.Role;
 import com.yc.snackoverflow.enums.VipEnum;
 import com.yc.snackoverflow.model.baseAbstract.BaseLongIdDO;
@@ -48,6 +49,7 @@ public class Member extends BaseLongIdDO implements UserDetails {
             mappedBy = "member",
             cascade = {CascadeType.PERSIST}
     )
+    @JsonIgnore
     private Set<MemberLog> memberLogs;
 
     @OneToMany(
@@ -55,6 +57,7 @@ public class Member extends BaseLongIdDO implements UserDetails {
             mappedBy = "member",
             cascade = {CascadeType.PERSIST}
     )
+    @JsonIgnore
     private Set<ProductCommit> productCommits;
 
     @Enumerated(EnumType.STRING)
