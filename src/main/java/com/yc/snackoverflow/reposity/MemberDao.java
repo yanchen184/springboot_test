@@ -13,12 +13,12 @@ import java.util.Optional;
 public interface MemberDao extends JpaRepository<Member, Long> {
 
     @Modifying
-    @Query(value = "INSERT INTO MEMBER (NAME, ALIVE, VIP, PASSWORD,BIRTHDAY) VALUES (:name, :alive, :vip, :password,now())" +
-            " ON DUPLICATE KEY UPDATE NAME = :name, ALIVE = :alive, VIP = :vip, PASSWORD = :password, BIRTHDAY = now()", nativeQuery = true)
-    int saveOrUpdate(String name, boolean alive, String vip, String password);
+    @Query(value = "INSERT INTO MEMBER (NAME, ALIVE, VIP, EMAIL,EMAIL,ROLE) VALUES (:name, :alive, :vip, :password,:email,:role )" +
+            " ON DUPLICATE KEY UPDATE NAME = :name, ALIVE = :alive, VIP = :vip, EMAIL = :email, ROLE = :role", nativeQuery = true)
+    int saveOrUpdate(String name, boolean alive, String vip, String password, String email, String role);
 
     default int saveOrUpdate(Member member) {
-        return saveOrUpdate(member.getName(), member.getAlive(), member.getVip().getValue(), member.getPassword());
+        return saveOrUpdate(member.getName(), member.getAlive(), member.getVip().getValue(), member.getPassword(), member.getEmail(), String.valueOf(member.getRole()));
     }
 
     @Modifying

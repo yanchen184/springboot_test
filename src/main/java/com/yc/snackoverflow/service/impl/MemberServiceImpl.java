@@ -1,6 +1,7 @@
 package com.yc.snackoverflow.service.impl;
 
 import com.yc.snackoverflow.data.MemberDto;
+import com.yc.snackoverflow.enums.Role;
 import com.yc.snackoverflow.enums.UpsertStatusEnum;
 import com.yc.snackoverflow.enums.VipEnum;
 import com.yc.snackoverflow.exception.WebErrorEnum;
@@ -25,15 +26,8 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public UpsertStatusEnum createOrUpdate(MemberDto memberDto) {
-        Member member = Member.builder()
-                .name(memberDto.getName())
-                .alive(true)
-                .vip(VipEnum.VIP1)
-                .password(memberDto.getPassword())
-                .build();
-        int createOrUpdate = memberDao.saveOrUpdate(member);
-
-        log.info("memberDao.saveOrUpdateMember(member) return {}", UpsertStatusEnum.lookup(createOrUpdate));
+        List<Member> members = this.list(List.of(memberDto.getName()));
+        int createOrUpdate = memberDao.saveOrUpdate(members.get(0));
         return UpsertStatusEnum.lookup(createOrUpdate)
                 .orElseThrow(WebErrorEnum.UPSERT_FAILED::exception);
     }
@@ -42,6 +36,6 @@ public class MemberServiceImpl implements MemberService {
     public List<Member> list(List<String> memberNameList) {
         return Optional.ofNullable(memberDao.list(memberNameList))
                 .filter(members -> !members.isEmpty())
-                .orElseThrow(WebErrorEnum.MEMBER_NOT_FOUND::exception);
+                .orElseThrow(() -> WebErrorEnum.MEMBER_NOT_FOUND.exception(memberNameList));
     }
 }

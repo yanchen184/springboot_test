@@ -15,10 +15,10 @@ public enum WebErrorEnum implements WebError {
     INTERNAL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "ERR0001", "Custom internal Error. " ),
     MISSING_TOKEN(HttpStatus.UNAUTHORIZED, "ERR0002", "Missing token. "),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "ERR0003", "Invalid token. "),
-    INVALID_ARG(HttpStatus.BAD_REQUEST, "ERR0004", "Invalid arg: {}. "),
+    INVALID_ARG(HttpStatus.BAD_REQUEST, "ERR0004", "Invalid arg: [%s]. "),
     UPSERT_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "ERR0005", "Upsert failed. "),
-    BOOKING_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR0006", "Booking not found. Booking id : [%s]"),
-    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR0007", "Member not found. "),
+    BOOKING_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR0006", "Booking not found. Booking id : [%s]. "),
+    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR0007", "Member not found: [%s]. "),
     MEMBER_EXISTS(HttpStatus.CONFLICT, "ERR0008", "Member exists. "),
     PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR0009", "Product not found. "),
     PRODUCT_EXISTS(HttpStatus.CONFLICT, "ERR0010", "Product exists. "),
@@ -41,5 +41,9 @@ public enum WebErrorEnum implements WebError {
     @Override
     public WebException exception(Object... args) {
         return new WebException(this, args);
+    }
+
+    public String getFormatAsString(Object... args) {
+        return String.format(errorLog, args);
     }
 }

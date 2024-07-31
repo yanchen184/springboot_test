@@ -4,7 +4,6 @@ package com.yc.snackoverflow.controller;
 import com.yc.snackoverflow.data.BookingDto;
 import com.yc.snackoverflow.data.ProductDto;
 import com.yc.snackoverflow.enums.UpsertStatusEnum;
-import com.yc.snackoverflow.exception.ProductNotFoundException;
 import com.yc.snackoverflow.model.Product;
 import com.yc.snackoverflow.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +46,7 @@ public class ProductCommitController {
     }
 
     @DeleteMapping
-    public void delete(@RequestBody BookingDto bookingDto) throws ProductNotFoundException {
+    public void delete(@RequestBody BookingDto bookingDto) {
 //        memberService.deleteBooking(bookingDto);
     }
 }

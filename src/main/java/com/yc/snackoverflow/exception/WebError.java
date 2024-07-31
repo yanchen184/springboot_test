@@ -16,4 +16,6 @@ public interface WebError {
     WebException exception();
 
     WebException exception(Object... args);
+
+    String getFormatAsString(Object... args);
 }

@@ -1,19 +1,16 @@
 package com.yc.snackoverflow.advice;
 
 import com.yc.snackoverflow.exception.WebError;
-import com.yc.snackoverflow.exception.WebErrorEnum;
 import com.yc.snackoverflow.exception.WebException;
 import com.yc.snackoverflow.handler.ResultData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.Locale;
+import java.text.MessageFormat;
 
 @Slf4j
 @RestControllerAdvice
@@ -25,9 +22,15 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(WebException.class)
     public ResultData<Object> handleWebException(final WebException e) {
         final WebError webError = e.getWebError();
-        log.error("[WebException]: {} ", webError.getErrorLog());
 //        final String resMessage = messageSource.getMessage(webError.getErrorCode(), e.getArgs(), LocaleContextHolder.getLocale());
-        return ResultData.fail(webError.getErrorCode(), webError.getErrorLog());
+//        String resMessage;
+//        if (e.getArgs() != null && e.getArgs().length > 0) {
+//            resMessage = MessageFormat.format(webError.getErrorLog(), e.getArgs());
+//        } else {
+//            resMessage = webError.getErrorLog();
+//        }
+        log.error("[WebException]: {} ", e.getWebErrorMsg());
+        return ResultData.fail(webError.getErrorCode(), e.getWebErrorMsg());
     }
 
 }

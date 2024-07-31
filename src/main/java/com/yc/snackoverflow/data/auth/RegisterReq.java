@@ -3,6 +3,7 @@ package com.yc.snackoverflow.data.auth;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -11,11 +12,9 @@ import lombok.NoArgsConstructor;
  */
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterReq {
+@EqualsAndHashCode(callSuper = true)
+public class RegisterReq extends AuthenticationRequest {
     private String username;
-    private String password;
-    private String email;
 }
